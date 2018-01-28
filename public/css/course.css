@@ -1,0 +1,32 @@
+
+.background{
+	background-color: #F1F1F1;
+}
+
+.cover-section{
+	display: block;
+	height: 370px;
+	background-position: center center;
+	//padding-left: 20px;
+	padding-top: 20px;
+}
+
+.picture-btn{
+	margin-left: 40px;
+	height: 40px;
+	width: 150px;
+}
+
+.course-name-bar{
+	background-color: rgba(0, 0, 0, 0.3);
+	width: 100%;
+	margin-top: 245px;
+	padding: 10px 30px;
+}
+
+.course-name{
+	margin: 0px !important;
+	color: #FFFFFF;
+	font-size: 42px;
+	font-family: "Bree Serif";
+}
