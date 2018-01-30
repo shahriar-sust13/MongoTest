@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/course', function(){
-	return view('course');
-});
+Route::get('/course/{id}/{tab}', 'CourseController@showCourseProfile');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/test', 'TestController@test');

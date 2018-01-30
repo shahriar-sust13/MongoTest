@@ -2,6 +2,8 @@
 
 return [
 
+    Jenssegers\Mongodb\MongodbServiceProvider::class,
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
