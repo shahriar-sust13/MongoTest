@@ -39,6 +39,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('reg') ? ' has-error' : '' }}">
+                            <label for="reg" class="col-md-4 control-label">Registration No</label>
+
+                            <div class="col-md-6">
+                                <input id="reg" type="number" class="form-control" name="reg" value="{{ old('reg') }}" required>
+
+                                @if ($errors->has('reg'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('reg') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col-md-4 control-label">Password</label>
 

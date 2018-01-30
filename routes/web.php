@@ -22,3 +22,9 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', 'TestController@test');
+
+Route::get('/addcourse', 'CourseController@showCourseForm');
+
+Route::post('/addcourse', 'CourseController@addCourse');
+
+Route::get('/course/request/{id}', 'CourseController@courseRequest');
