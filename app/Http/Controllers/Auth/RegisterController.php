@@ -67,13 +67,16 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'type' => 2,
             'reg' => $data['reg'],
             'password' => bcrypt($data['password']),
         ]);
+        /*
         $userInfo = new UserInfo;
         $userInfo->userId = $user->id;
         $userInfo->type = 2;
         $userInfo->save();
+        */
         return $user;
     }
 }

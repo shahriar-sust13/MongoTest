@@ -7,23 +7,6 @@
 	.cover-section{
 		background-image: url( {{ url('images/cover.jpg')  }} );
 	}
-
-	.teacher-section{
-		@if( $tab == 1 )
-			display: block;
-		@else 
-			display: none;
-		@endif
-	}
-
-	.students-section{
-		@if( $tab == 2 )
-			display: block;
-		@else 
-			display: none;
-		@endif
-	}
-
 	#tab{{$tab}} {
 		background-color: #17AFCA;
 		color: #F3F3F3;
@@ -48,9 +31,14 @@
 			</div>
 		</div>
 		<div class="course-menu-section">
-			<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a>
+			@if( \Auth::user()->type == 2 )
+				<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a>
+			@else
+				<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a><a id="tab3" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/3') }}">Requests <span class="badge request-badge">{{$totalRequest}}</span></a>
+			@endif
 		</div>
 
+		@if( $tab == 1 )
 		<div class="teacher-section">
 
 			<div class="post-form-container">
@@ -111,9 +99,10 @@
 			</div>
 
 		</div>
+		@endif
 
 
-
+		@if( $tab == 2 )
 		<div class="students-section">
 			
 			<div class="post-form-container">
@@ -171,6 +160,13 @@
 			</div>
 
 		</div>
+		@endif
+
+		@if( $tab == 3 )
+		<div class="request-section">
+			@include('request')
+		</div>
+		@endif
 
 	</div>
 </div>

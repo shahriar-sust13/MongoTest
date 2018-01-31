@@ -94,6 +94,10 @@
 	color: #4F4F4F;
 }
 
+.request-badge{
+	background-color: #E42323 !important;
+}
+
 .post-container{
 	margin: 20px 0px 10px 35px;
 	width: 1070px;
@@ -187,12 +191,9 @@
 	font-family: "Bree Serif";
 	color: #2A2A2A;
 }
-/*
-.post-submit-btn{
-	width: 100px;
-	height: 40px;
-	border: none;
-	background-color: rgba(0, 0, 0, 0.6);
+
+.request-section{
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
-*/
 
