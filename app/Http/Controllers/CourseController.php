@@ -7,6 +7,7 @@ use App\User;
 use App\Course;
 use App\Dropper;
 use App\CourseRequest;
+use App\Post;
 
 class CourseController extends Controller
 {
@@ -18,7 +19,6 @@ class CourseController extends Controller
     }
 
     public function checkAdmin(){
-    	$userId = \Auth::user()->id;
     	$userType = \Auth::user()->type;
     	if( $userType == 1 )
     		return true;
@@ -50,6 +50,16 @@ class CourseController extends Controller
     	if( $tab == 3 ){
     		$requests = $this->getRequest($id);
     		return view('course', compact('id', 'tab', 'totalRequest', 'requests'));
+    	}
+    	if( $tab == 2 ){
+    		$posts = Post::where('type', 2)->where('course_id', $id)->get();
+    		foreach($posts as $post){
+    			$user = User::where('_id', $post->user_id)->first();
+    			$post->name = $user->name;
+    			//$post->image_id = $user->image_id;
+    			$post->image_id = 0;
+    		}
+    		return view('course', compact('id', 'tab', 'totalRequest', 'posts'));
     	}
     	return view('course', compact('id', 'tab', 'totalRequest'));
     }
@@ -87,5 +97,23 @@ class CourseController extends Controller
     	$courseRequest->user_id = $userId;
     	$courseRequest->save();
     	return 'Request Sent';
+    }
+
+    public function acceptRequest($course_id, $user_id){
+    	if( $this->checkAdmin() == false )
+    		return redirect('course/'.$course_id.'/1');
+    	CourseRequest::where('course_id', $course_id)->where('user_id', $user_id)->delete();
+    	$dropper = new Dropper;
+    	$dropper->course_id = $course_id;
+    	$dropper->user_id = $user_id;
+    	$dropper->save();
+    	return redirect('course/'.$course_id.'/3');
+    }
+
+    public function declineRequest($course_id, $user_id){
+    	if( $this->checkAdmin() == false )
+    		return redirect('course/'.$course_id.'/1');
+    	CourseRequest::where('course_id', $course_id)->where('user_id', $user_id)->delete();
+    	return redirect('course/'.$course_id.'/3');
     }
 }

@@ -28,3 +28,9 @@ Route::get('/addcourse', 'CourseController@showCourseForm');
 Route::post('/addcourse', 'CourseController@addCourse');
 
 Route::get('/course-request/{id}', 'CourseController@courseRequest');
+
+Route::get('/accept/{course_id}/{user_id}', 'CourseController@acceptRequest');
+
+Route::get('/decline/{course_id}/{user_id}', 'CourseController@declineRequest');
+
+Route::post('/course-post/{course_id}', 'PostController@addPost');

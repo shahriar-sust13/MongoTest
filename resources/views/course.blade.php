@@ -106,7 +106,7 @@
 		<div class="students-section">
 			
 			<div class="post-form-container">
-				<form method="POST" action="{{ url('') }}" enctype="multipart/form-data">
+				<form method="POST" action="{{ url('course-post/'.$id) }}" enctype="multipart/form-data">
 					{{ csrf_field() }} 
 					<textarea autofocus="true" autofocus="true" class="form-item post-description" name="description" placeholder="Start from here..." rows="3" cols="50"></textarea>
 					<button type="submit" class="form-item post-submit-btn">
@@ -115,48 +115,30 @@
 				</form>
 			</div>
 
-			<div class="post-container">
-				<table>
-					<tr>
-						<td>
-							<div class="author-section text-center">
-								<div class="img-container">
-									<img src="{{ url('images/enam.jpg') }}">
+			<div>
+				@foreach($posts as $post)
+				<div class="post-container">
+					<table>
+						<tr>
+							<td>
+								<div class="author-section text-center">
+									<div class="img-container">
+										<img src="{{ url('images/profiles/'.$post->image_id.'.jpg') }}">
+									</div>
+									<h3 class="author-name">{{ $post->name }}</h3>
+									<h5>Posted on</h5>
+									<p class="date">21/01/2018</p>
 								</div>
-								<h3 class="author-name">Enamul Hasan</h3>
-								<h5>Posted on</h5>
-								<p class="date">21/01/2018</p>
-							</div>
-						</td>
-						<td>
-							<div class="description-section">
-								<p class="description">This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post.</p>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</div>
-
-			<div class="post-container">
-				<table>
-					<tr>
-						<td>
-							<div class="author-section text-center">
-								<div class="img-container">
-									<img src="{{ url('images/enam.jpg') }}">
+							</td>
+							<td>
+								<div class="description-section">
+									<p class="description">{{ $post->description }}</p>
 								</div>
-								<h3 class="author-name">Enamul Hasan</h3>
-								<h5>Posted on</h5>
-								<p class="date">21/01/2018</p>
-							</div>
-						</td>
-						<td>
-							<div class="description-section">
-								<p class="description">This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post.</p>
-							</div>
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				@endforeach
 			</div>
 
 		</div>
