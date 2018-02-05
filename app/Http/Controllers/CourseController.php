@@ -52,7 +52,17 @@ class CourseController extends Controller
     		return view('course', compact('id', 'tab', 'totalRequest', 'requests'));
     	}
     	if( $tab == 2 ){
-    		$posts = Post::where('type', 2)->where('course_id', $id)->get();
+    		$posts = Post::where('type', 2)->where('course_id', $id)->paginate(10);
+    		foreach($posts as $post){
+    			$user = User::where('_id', $post->user_id)->first();
+    			$post->name = $user->name;
+    			//$post->image_id = $user->image_id;
+    			$post->image_id = 0;
+    		}
+    		return view('course', compact('id', 'tab', 'totalRequest', 'posts'));
+    	}
+    	if( $tab == 1 ){
+    		$posts = Post::where('type', 1)->where('course_id', $id)->paginate(10);
     		foreach($posts as $post){
     			$user = User::where('_id', $post->user_id)->first();
     			$post->name = $user->name;

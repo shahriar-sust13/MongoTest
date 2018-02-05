@@ -41,8 +41,9 @@
 		@if( $tab == 1 )
 		<div class="teacher-section">
 
+		@if( \Auth::user()->type == 1 )
 			<div class="post-form-container">
-				<form method="POST" action="{{ url('') }}" enctype="multipart/form-data">
+				<form method="POST" action="{{ url('course-post/'.$id) }}" enctype="multipart/form-data">
 					{{ csrf_field() }} 
 					<textarea autofocus="true" class="form-item post-description" name="description" placeholder="Start from here..." rows="3" cols="50"></textarea>
 					<input class="form-item" type="file" name="file">
@@ -51,51 +52,34 @@
 					</button>
 				</form>
 			</div>
+		@endif
 
-			<div class="post-container">
-				<table>
-					<tr>
-						<td>
-							<div class="author-section text-center">
-								<div class="img-container">
-									<img src="{{ url('images/enam.jpg') }}">
+			<div>
+				@foreach($posts as $post)
+				<div class="post-container">
+					<table>
+						<tr>
+							<td>
+								<div class="author-section text-center">
+									<div class="img-container">
+										<img src="{{ url('images/profiles/'.$post->image_id.'.jpg') }}">
+									</div>
+									<h3 class="author-name">{{ $post->name }}</h3>
+									<h5>Posted on</h5>
+									<p class="date">21/01/2018</p>
 								</div>
-								<h3 class="author-name">Enamul Hasan</h3>
-								<h5>Posted on</h5>
-								<p class="date">21/01/2018</p>
-							</div>
-						</td>
-						<td>
-							<div class="description-section">
-								<p class="description">This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post.</p>
-								<a role="button" class="download-btn">Download File</a>
-							</div>
-						</td>
-					</tr>
-				</table>
-			</div>
-
-			<div class="post-container">
-				<table>
-					<tr>
-						<td>
-							<div class="author-section text-center">
-								<div class="img-container">
-									<img src="{{ url('images/enam.jpg') }}">
+							</td>
+							<td>
+								<div class="description-section">
+									<p class="description">{{ $post->description }}</p>
+									<a role="button" class="download-btn">Download File</a>
 								</div>
-								<h3 class="author-name">Enamul Hasan</h3>
-								<h5>Posted on</h5>
-								<p class="date">21/01/2018</p>
-							</div>
-						</td>
-						<td>
-							<div class="description-section">
-								<p class="description">This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post. This is a Test Post.</p>
-								<a role="button" class="download-btn">Download File</a>
-							</div>
-						</td>
-					</tr>
-				</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				@endforeach
+				<div class="text-center">{{ $posts->links() }}</div>
 			</div>
 
 		</div>
@@ -105,6 +89,7 @@
 		@if( $tab == 2 )
 		<div class="students-section">
 			
+			@if( \Auth::user()->type == 2 )
 			<div class="post-form-container">
 				<form method="POST" action="{{ url('course-post/'.$id) }}" enctype="multipart/form-data">
 					{{ csrf_field() }} 
@@ -114,6 +99,7 @@
 					</button>
 				</form>
 			</div>
+			@endif
 
 			<div>
 				@foreach($posts as $post)
@@ -139,6 +125,7 @@
 					</table>
 				</div>
 				@endforeach
+				<div class="text-center">{{ $posts->links() }}</div>
 			</div>
 
 		</div>

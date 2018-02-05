@@ -25,7 +25,7 @@ class PostController extends Controller
     	$user_id = \Auth::user()->id;
     	if( $this->checkAdmin() == true ){
     		$post = New Post;
-    		$post->type = 1; // 1 means Student Post
+    		$post->type = 1; // 1 means Teacher Post
     		$post->user_id = $user_id;
     		$post->course_id = $course_id;
     		$post->description = $request->description;
