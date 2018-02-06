@@ -72,7 +72,9 @@
 							<td>
 								<div class="description-section">
 									<p class="description">{{ $post->description }}</p>
-									<a role="button" class="download-btn">Download File</a>
+									@if( !empty($post->file_id) )
+										<a role="button" class="download-btn" href="{{ url('download/'.$post->file_id) }}">Download File</a>
+									@endif
 								</div>
 							</td>
 						</tr>

@@ -8,6 +8,7 @@ use App\Course;
 use App\Dropper;
 use App\CourseRequest;
 use App\Post;
+use App\File;
 
 class CourseController extends Controller
 {
@@ -52,7 +53,7 @@ class CourseController extends Controller
     		return view('course', compact('id', 'tab', 'totalRequest', 'requests'));
     	}
     	if( $tab == 2 ){
-    		$posts = Post::where('type', 2)->where('course_id', $id)->paginate(10);
+    		$posts = Post::where('type', 2)->where('course_id', $id)->orderBy('created_at', 'desc')->paginate(5);
     		foreach($posts as $post){
     			$user = User::where('_id', $post->user_id)->first();
     			$post->name = $user->name;
@@ -62,10 +63,14 @@ class CourseController extends Controller
     		return view('course', compact('id', 'tab', 'totalRequest', 'posts'));
     	}
     	if( $tab == 1 ){
-    		$posts = Post::where('type', 1)->where('course_id', $id)->paginate(10);
+    		$posts = Post::where('type', 1)->where('course_id', $id)->orderBy('created_at', 'desc')->paginate(5);
     		foreach($posts as $post){
     			$user = User::where('_id', $post->user_id)->first();
     			$post->name = $user->name;
+    			if( File::where('post_id', $post->id)->count()>0 ){
+    				$file = File::where('post_id', $post->id)->first();
+    				$post->file_id = $file->id;
+    			}
     			//$post->image_id = $user->image_id;
     			$post->image_id = 0;
     		}

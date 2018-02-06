@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
+use App\File;
 
 class PostController extends Controller
 {
@@ -30,6 +31,15 @@ class PostController extends Controller
     		$post->course_id = $course_id;
     		$post->description = $request->description;
     		$post->save();
+    		if( $request->hasFile('file') ){
+    			$file = $request->file('file');
+    			$file_id = new File;
+    			$file_id->post_id = $post->id;
+    			$file_id->extension = $file->getClientOriginalExtension(); 
+    			$file_id->save();
+	            $fileName = $file_id->id . '.' . $file->getClientOriginalExtension();
+	            $file->move('resources/', $fileName);
+	    	}
     		return redirect('course/'.$course_id.'/1');
     	}
     	else{
