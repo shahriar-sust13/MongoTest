@@ -36,3 +36,4 @@ Route::get('/decline/{course_id}/{user_id}', 'CourseController@declineRequest');
 Route::post('/course-post/{course_id}', 'PostController@addPost');
 
 Route::get('/download/{file_id}', 'FileController@downloadFile');
+

@@ -32,9 +32,9 @@
 		</div>
 		<div class="course-menu-section">
 			@if( \Auth::user()->type == 2 )
-				<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a>
+				<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a><a id="tab4" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/4') }}">Questions</a>
 			@else
-				<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a><a id="tab3" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/3') }}">Requests <span class="badge request-badge">{{$totalRequest}}</span></a>
+				<a id="tab1" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/1') }}">Teacher Post</a><a id="tab2" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/2') }}">Students Post</a><a id="tab3" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/3') }}">Requests <span class="badge request-badge">{{$totalRequest}}</span></a><a id="tab4" class="text-center menu-item disable-item" href="{{ url('course/'.$id.'/4') }}">Questions</a>
 			@endif
 		</div>
 
@@ -136,6 +136,12 @@
 		@if( $tab == 3 )
 		<div class="request-section">
 			@include('request')
+		</div>
+		@endif
+
+		@if( $tab == 4 )
+		<div class="questions-section">
+			@include('questions-tab')
 		</div>
 		@endif
 
