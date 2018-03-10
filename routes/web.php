@@ -37,3 +37,8 @@ Route::post('/course-post/{course_id}', 'PostController@addPost');
 
 Route::get('/download/{file_id}', 'FileController@downloadFile');
 
+Route::post('/question-post/{course_id}', 'QuestionController@addQuestion');
+
+Route::get('/question/{id}', 'QuestionController@showQuestion');
+
+Route::post('/post-answer/{question_id}', 'QuestionController@addAnswer');

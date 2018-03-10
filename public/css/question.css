@@ -1,0 +1,144 @@
+
+.question-top-bar{
+	padding: 20px 0px;
+	background-color: #A5A5A5;
+	color: #212121;
+}
+
+.question-top-bar h3{
+	font-size: 40px;
+	margin: 0px !important;
+	font-family: "Bitter";
+}
+
+.question-body{
+	background-color: #EAEAEA;
+}
+
+.headline-container{
+	padding-top: 40px;
+	padding-bottom: 5px;
+	border-bottom: solid 1px #BBBBBB;
+}
+
+.headline-container h3{
+	margin: 5px 0px;
+	font-size: 28px;
+	font-family: "Roboto Slab";
+}
+
+.headline-container a{
+	transition: all 0.8s;
+}
+
+.headline-container a:hover{
+	text-decoration: none;
+}
+
+.headline-container a:link{
+	text-decoration: none;
+}
+
+.answers-section{
+	margin: 20px 0px;
+}
+
+.post-container{
+	margin: 20px 0px 10px 0px;
+	width: 1140px;
+	background-color: #DDDDDD;
+}
+
+.author-section{
+	width: 220px;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.description-section{
+	width: 920px;
+	min-height: 188px;
+	background-color: #CFCFCF;
+	padding: 20px 15px;
+}
+
+.img-container{
+	height: 60px;
+	width: 60px;
+	background-color: #D3E3E7;
+	overflow: hidden;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.img-container img{
+	height: 60px;
+	width: 100%;
+}
+
+.author-name{
+	margin: 10px 5px 0px 0px;
+	font-size: 19px;
+	color: #202020;
+	font-family: "Roboto Slab"
+}
+
+.author-section h5{
+	margin: 8px 0px 0px 0px;
+	color: #494949;
+	font-size: 15px;
+	font-family: "Acme"
+}
+
+.date{
+	margin-top: 3px;
+	color: #393838;
+	font-size: 15px;
+	font-family: "Open Sans";
+}
+
+.description{
+	font-size: 18px;
+	font-family: "Bree Serif";
+	color: #2A2A2A;
+}
+
+.setter-section{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+.question-section{
+	min-height: 100px !important;
+	padding: 15px 15px !important;
+}
+
+.post-form-container{
+	margin: 10px 0px 10px 0px;
+	background-color: #C9C9C9;
+	min-height: 150px;
+	width: 1140px;
+	padding: 10px 10px 10px 10px;
+}
+
+.post-form-container form{
+	margin-bottom: 0px;
+}
+
+.form-item{
+	margin: 5px 0px;
+	font-family: "Acme"
+}
+
+.post-description{
+	width: 100%;
+	padding: 5px;
+	font-size: 18px;
+	font-family: "Bree Serif";
+	color: #2A2A2A;
+}
+
+.answer-alert{
+	font-size: 20px;
+	padding: 10px !important;
+}
