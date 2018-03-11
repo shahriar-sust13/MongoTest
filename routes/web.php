@@ -12,7 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	if( Auth::check() ){
+		return redirect('profile/'.Auth::user()->_id);
+	}
+    return view('auth.login');
 });
 
 Route::get('/course/{id}/{tab}', 'CourseController@showCourseProfile');
@@ -42,3 +45,5 @@ Route::post('/question-post/{course_id}', 'QuestionController@addQuestion');
 Route::get('/question/{id}', 'QuestionController@showQuestion');
 
 Route::post('/post-answer/{question_id}', 'QuestionController@addAnswer');
+
+Route::get('/profile/{id}', 'ProfileController@showProfile');

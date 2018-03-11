@@ -8,14 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Course Management</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+        <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0px !important;">
             <div class="container">
                 <div class="navbar-header">
 
@@ -29,7 +29,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        Course Management
                     </a>
                 </div>
 
@@ -52,6 +52,11 @@
                                 </a>
 
                                 <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="{{ url('profile/'.Auth::user()->_id) }}">
+                                        Profile        
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

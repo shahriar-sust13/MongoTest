@@ -1,5 +1,5 @@
 
-@extends('layout')
+@extends('layouts.app')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/course.css')}}">
 
@@ -27,7 +27,7 @@
 		<div class="cover-section">
 			<button class="picture-btn">Change Picture</button>
 			<div class="course-name-bar">
-				<h3 class="course-name">Advanced Database System</h3>
+				<h3 class="course-name">{{ $course_name }}</h3>
 			</div>
 		</div>
 		<div class="course-menu-section">

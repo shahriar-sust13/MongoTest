@@ -1,5 +1,5 @@
 
-@extends('layout')
+@extends('layouts.app')
 
 <link rel="stylesheet" type="text/css" href="{{ asset('/css/question.css')}}">
 
@@ -14,7 +14,11 @@
 <div class="container question-body">
 	<div class="headline-container">
 		<h3><a href="#">{{ $question->description }}</a></h3>
-		<h5>Posted by <a href="#">{{ $question->author_name }}</a></h5>
+		<h5>Posted by <a href="{{ url('profile/'.$question->author) }}">{{ $question->author_name }}</a></h5>
+		<h5 class="point-bar">Point: N/A</h5>
+		@if(Auth::user()->type == 1)
+		<a href="#" class="change-point-btn">Change Point</a>
+		@endif
 	</div>
 
 	<div class="answers-section">
@@ -41,6 +45,10 @@
 								<td>
 									<div class="description-section question-section">
 										<p class="description">{{ $answer->description }}</p>
+										<h5 class="point-bar">Point: N/A</h5>
+										@if(Auth::user()->type == 1)
+										<a href="#" class="change-point-btn">Change Point</a>
+										@endif
 									</div>
 								</td>
 							</tr>

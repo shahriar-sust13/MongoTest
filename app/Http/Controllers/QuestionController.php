@@ -46,17 +46,17 @@ class QuestionController extends Controller
     	$user = \Auth::user();
     	$user_id = $user->id;
     	$question = Question::find($id);
+        $question->author_name = User::find($question->author)->name;
     	$course_id = $question->course_id;
     	if( $this->isRegistered($course_id, $user_id) == false ){
     		return view('course-request', compact('course_id'));
     	}
-    	if( Answer::where('question_id', $id)->where('author', $user_id)->count() == 0 && $user->type != 1 )
-    		return view('question', compact('id'));
+    	if( $user_id != $question->author && Answer::where('question_id', $id)->where('author', $user_id)->count() == 0 && $user->type != 1 )
+    		return view('question', compact('id', 'question'));
     	$answers = Answer::where('question_id', $id)->orderBy('created_at', 'desc')->get();
     	foreach($answers as $answer){
     		$answer->author_name = User::find($answer->author)->name;
     	}
-    	$question->author_name = User::find($question->author)->name;
     	return view('question', compact('id', 'question', 'answers'));
     }
 

@@ -42,16 +42,17 @@ class CourseController extends Controller
     			return 'No Permission';
     		$userSession = \Auth::user()->reg;
     		$userSession = substr($userSession, 0, 4);
-    		$courseSession = Course::find($id)->first()->session;
+    		$courseSession = Course::find($id)->session;
     		if( $userSession != $courseSession ){
     			if( Dropper::where('course_id', $id)->where('user_id', $userId)->count() == 0 )
     				return view('course-request', compact('id'));
     		}
     	}
+        $course_name = Course::find($id)->name;
     	$totalRequest = CourseRequest::where('course_id', $id)->count();
     	if( $tab == 3 ){ // course requests
     		$requests = $this->getRequest($id);
-    		return view('course', compact('id', 'tab', 'totalRequest', 'requests'));
+    		return view('course', compact('id', 'course_name', 'tab', 'totalRequest', 'requests'));
     	}
     	if( $tab == 2 ){ // posts from the students
     		$posts = Post::where('type', 2)->where('course_id', $id)->orderBy('created_at', 'desc')->paginate(5);
@@ -61,7 +62,7 @@ class CourseController extends Controller
     			//$post->image_id = $user->image_id;
     			$post->image_id = 0;
     		}
-    		return view('course', compact('id', 'tab', 'totalRequest', 'posts'));
+    		return view('course', compact('id', 'course_name', 'tab', 'totalRequest', 'posts'));
     	}
     	if( $tab == 1 ){ // post from the teacher
     		$posts = Post::where('type', 1)->where('course_id', $id)->orderBy('created_at', 'desc')->paginate(5);
@@ -75,7 +76,7 @@ class CourseController extends Controller
     			//$post->image_id = $user->image_id;
     			$post->image_id = 0;
     		}
-    		return view('course', compact('id', 'tab', 'totalRequest', 'posts'));
+    		return view('course', compact('id', 'course_name', 'tab', 'totalRequest', 'posts'));
     	}
         if( $tab == 4 ){ // question tab
             $questions = Question::where('course_id', $id)->orderBy('created_at', 'desc')->paginate(5);
@@ -83,9 +84,9 @@ class CourseController extends Controller
                 $user = User::where('_id', $question->author)->first();
                 $question->author_name = $user->name;
             }
-            return view('course', compact('id', 'tab', 'totalRequest', 'questions'));
+            return view('course', compact('id', 'course_name', 'tab', 'totalRequest', 'questions'));
         }
-    	return view('course', compact('id', 'tab', 'totalRequest'));
+    	return view('course', compact('id', 'course_name', 'tab', 'totalRequest'));
     }
 
     public function showCourseForm(){
