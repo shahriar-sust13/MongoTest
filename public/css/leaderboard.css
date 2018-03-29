@@ -1,0 +1,17 @@
+
+.leaderboard-container{
+	margin-top: 40px;
+}
+
+table, td, th{
+	border: solid 1px #B9B9B9;
+}
+
+th{
+	background-color: #56D0E5;
+	color: #3C3C3C;
+}
+
+td, th{
+	padding: 10px;
+}

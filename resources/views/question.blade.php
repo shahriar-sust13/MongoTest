@@ -15,11 +15,36 @@
 	<div class="headline-container">
 		<h3><a href="#">{{ $question->description }}</a></h3>
 		<h5>Posted by <a href="{{ url('profile/'.$question->author) }}">{{ $question->author_name }}</a></h5>
-		<h5 class="point-bar">Point: N/A</h5>
+		@if( $question->score == -1 )
+			<h5 class="point-bar">Point: N/A</h5>
+		@else
+			<h5 class="point-bar">Point: {{ $question->score }}</h5>
+		@endif
 		@if(Auth::user()->type == 1)
-		<a href="#" class="change-point-btn">Change Point</a>
+		<a href="#" class="change-point-btn" data-toggle="modal" data-target="#pointModal">Change Point</a>
 		@endif
 	</div>
+
+	<!-- Modal -->
+		<div class="modal fade" id="pointModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  	<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      	<div class="modal-header">
+			        	<h3 class="modal-title text-center" id="exampleModalLabel">Change Point</h3>
+			      	</div>
+				    <div class="modal-body">
+				        <form method="POST" action="{{ url('point/1/'.$question->_id) }}" enctype="multipart/form-data">
+				        	{{ csrf_field() }}
+				        	<input type="number" name="score" min="0" max="100" required="true">
+				        	<button type="submit" class="btn btn-success">SUBMIT</button>
+				        </form>
+				    </div>
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+			      	</div>
+			    </div>
+		  	</div>
+		</div>
 
 	<div class="answers-section">
 		
@@ -45,14 +70,39 @@
 								<td>
 									<div class="description-section question-section">
 										<p class="description">{{ $answer->description }}</p>
-										<h5 class="point-bar">Point: N/A</h5>
+										@if( $answer->score == -1 )
+											<h5 class="point-bar">Point: N/A</h5>
+										@else
+											<h5 class="point-bar">Point: {{ $answer->score }}</h5>
+										@endif
 										@if(Auth::user()->type == 1)
-										<a href="#" class="change-point-btn">Change Point</a>
+										<a href="#" class="change-point-btn" data-toggle="modal" data-target="#pointModal{{$answer->_id}}">Change Point</a>
 										@endif
 									</div>
 								</td>
 							</tr>
 						</table>
+					</div>
+
+					<!-- Modal -->
+					<div class="modal fade" id="pointModal{{$answer->_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  	<div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      	<div class="modal-header">
+						        	<h3 class="modal-title text-center" id="exampleModalLabel">Change Point</h3>
+						      	</div>
+							    <div class="modal-body">
+							        <form method="POST" action="{{ url('point/2/'.$answer->_id) }}" enctype="multipart/form-data">
+							        	{{ csrf_field() }}
+							        	<input type="number" name="score" min="0" max="100" required="true">
+							        	<button type="submit" class="btn btn-success">SUBMIT</button>
+							        </form>
+							    </div>
+						      	<div class="modal-footer">
+						        	<button type="button" class="btn btn-danger" data-dismiss="modal">Discard</button>
+						      	</div>
+						    </div>
+					  	</div>
 					</div>
 				@endforeach
 			@endif

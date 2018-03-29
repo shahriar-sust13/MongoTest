@@ -8,6 +8,7 @@ use App\User;
 use App\Dropper;
 use App\Course;
 use App\Answer;
+use App\Point;
 
 class QuestionController extends Controller
 {
@@ -41,6 +42,12 @@ class QuestionController extends Controller
     	return redirect('/course/'.$course_id.'/4');
     }
 
+    function getPoint($type, $post_id){
+        if( Point::where('type', (string)$type)->where('post_id', (string)$post_id)->count() == 0 )    return -1;
+        $score = Point::where('type', (string)$type)->where('post_id', (string)$post_id)->first()->score;
+        return $score;
+    }
+
     public function showQuestion($id){
     	if( Question::where('_id', $id)->count() == 0 )	return redirect('home');
     	$user = \Auth::user();
@@ -48,6 +55,7 @@ class QuestionController extends Controller
     	$question = Question::find($id);
         $question->author_name = User::find($question->author)->name;
     	$course_id = $question->course_id;
+        $question->score = $this->getPoint(1, $id);
     	if( $this->isRegistered($course_id, $user_id) == false ){
     		return view('course-request', compact('course_id'));
     	}
@@ -56,6 +64,7 @@ class QuestionController extends Controller
     	$answers = Answer::where('question_id', $id)->orderBy('created_at', 'desc')->get();
     	foreach($answers as $answer){
     		$answer->author_name = User::find($answer->author)->name;
+            $answer->score = $this->getPoint(2, $answer->_id);
     	}
     	return view('question', compact('id', 'question', 'answers'));
     }

@@ -10,6 +10,8 @@ use App\CourseRequest;
 use App\Post;
 use App\File;
 use App\Question;
+use App\Answer;
+use App\Point;
 
 class CourseController extends Controller
 {
@@ -33,6 +35,12 @@ class CourseController extends Controller
     		$request->name = User::find($request->user_id)->name;
     	}
     	return $requests;
+    }
+
+    function getPoint($type, $post_id){
+        if( Point::where('type', (string)$type)->where('post_id', (string)$post_id)->count() == 0 )    return -1;
+        $score = Point::where('type', (string)$type)->where('post_id', (string)$post_id)->first()->score;
+        return $score;
     }
 
     public function showCourseProfile($id, $tab){
@@ -85,6 +93,48 @@ class CourseController extends Controller
                 $question->author_name = $user->name;
             }
             return view('course', compact('id', 'course_name', 'tab', 'totalRequest', 'questions'));
+        }
+        if( $tab == 5 ){
+            $questions = Question::where('course_id', $id)->get();
+            $points = [];
+            foreach($questions as $question){
+                if( array_key_exists($question->author, $points) ){
+                    $value = (int)($this->getPoint(1, $question->_id));
+                    if( $value != -1 )
+                        $points[$question->author] += $value;
+                }
+                else{
+                    $value = (int)($this->getPoint(1, $question->_id));
+                    if( $value != -1 )
+                        $points[$question->author] = $value;
+                }
+                $answers = Answer::where('question_id', $question->_id)->get();
+                $question->answers = $answers;
+                
+                foreach($answers as $answer){
+                    if( array_key_exists($answer->author, $points) ){
+                        $value = (int)($this->getPoint(1, $answer->_id));
+                        if( $value != -1 )
+                            $points[$answer->author] += $value;
+                    }
+                    else{
+                        $value = (int)($this->getPoint(1, $answer->_id));
+                        if( $value != -1 )
+                            $points[$answer->author] = $value;
+                    }
+                }
+
+            }
+            arsort($points);
+            $students = [];
+            foreach($points as $key => $score){
+                $user = User::find($key);
+                $student['name'] = $user->name;
+                $student['regno'] = $user->reg;
+                $student['score'] = $score;
+                array_push($students, $student);
+            }
+            return view('course', compact('id', 'course_name', 'tab', 'totalRequest', 'students'));
         }
     	return view('course', compact('id', 'course_name', 'tab', 'totalRequest'));
     }

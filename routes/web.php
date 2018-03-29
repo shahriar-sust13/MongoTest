@@ -47,3 +47,5 @@ Route::get('/question/{id}', 'QuestionController@showQuestion');
 Route::post('/post-answer/{question_id}', 'QuestionController@addAnswer');
 
 Route::get('/profile/{id}', 'ProfileController@showProfile');
+
+Route::post('/point/{type}/{post_id}', 'PointController@addPoint');
